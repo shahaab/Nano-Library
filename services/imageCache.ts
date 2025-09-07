@@ -2,10 +2,12 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
+//- Fix: Corrected module import path for types.
+import type { PageAsset } from '../types';
 
-// Uses localStorage for persistent caching across browser sessions.
+// Uses localStorage for persistent caching of page assets (image and prompts).
 
-const CACHE_PREFIX = 'book-illustration-cache-';
+const CACHE_PREFIX = 'book-asset-cache-';
 
 /**
  * Generates a unique key for localStorage based on book title and page number.
@@ -20,14 +22,15 @@ function getKey(bookTitle: string, pageNumber: number): string {
 }
 
 /**
- * Retrieves a cached image from localStorage.
+ * Retrieves a cached asset from localStorage.
  * @param bookTitle The title of the book.
  * @param pageNumber The page number.
- * @returns The base64 encoded image string, or null if not found.
+ * @returns The PageAsset object, or null if not found.
  */
-export function getCachedImage(bookTitle: string, pageNumber: number): string | null {
+export function getCachedAsset(bookTitle: string, pageNumber: number): PageAsset | null {
   try {
-    return localStorage.getItem(getKey(bookTitle, pageNumber));
+    const data = localStorage.getItem(getKey(bookTitle, pageNumber));
+    return data ? JSON.parse(data) : null;
   } catch (error) {
     console.error("Failed to read from localStorage:", error);
     return null;
@@ -35,14 +38,14 @@ export function getCachedImage(bookTitle: string, pageNumber: number): string | 
 }
 
 /**
- * Saves an image to localStorage.
+ * Saves an asset to localStorage.
  * @param bookTitle The title of the book.
  * @param pageNumber The page number.
- * @param image The base64 encoded image string to save.
+ * @param asset The PageAsset object to save.
  */
-export function setCachedImage(bookTitle: string, pageNumber: number, image: string): void {
+export function setCachedAsset(bookTitle: string, pageNumber: number, asset: PageAsset): void {
   try {
-    localStorage.setItem(getKey(bookTitle, pageNumber), image);
+    localStorage.setItem(getKey(bookTitle, pageNumber), JSON.stringify(asset));
   } catch (error) {
     console.error("Failed to write to localStorage:", error);
   }

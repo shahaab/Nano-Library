@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { useState } from 'react';
-import Library from './components/Library.tsx';
-import BookView from './components/BookView.tsx';
-import { initialBooks } from './data/mockBooks.ts';
-import type { Book } from './types.ts';
+import Library from './components/Library';
+//- Fix: Corrected module import path for BookView.
+import BookView from './components/BookView';
+import { initialBooks } from './data/mockBooks';
+//- Fix: Corrected module import path for types.
+import type { Book } from './types';
 
 export default function App() {
   const [books, setBooks] = useState<Book[]>(initialBooks);

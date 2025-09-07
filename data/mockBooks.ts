@@ -2,7 +2,8 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-import type { Book } from '../types.ts';
+//- Fix: Corrected module import path for types.
+import type { Book } from '../types';
 
 export const initialBooks: Book[] = [
   {

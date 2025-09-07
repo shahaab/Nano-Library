@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { useState } from 'react';
-import type { Book } from '../types.ts';
-import { parsePdf } from '../services/pdfParser.ts';
+//- Fix: Corrected module import path for types.
+import type { Book } from '../types';
+import { parsePdf } from '../services/pdfParser';
 
 interface LibraryProps {
   books: Book[];
